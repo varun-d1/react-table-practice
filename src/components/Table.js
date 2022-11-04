@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useTable, useSortBy, useGlobalFilter, useFilters } from "react-table";
+import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination } from "react-table";
 import MOCK_DATA from "./data.json";
 import { COLUMNS } from "./columns";
 import GlobalFilter from "./GlobalFilter";
@@ -24,13 +24,27 @@ export const Table = () => {
         useFilters,
         useGlobalFilter,
         useSortBy,
+        usePagination,
     );
     console.log(tableInstance);
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, footerGroups, state, setGlobalFilter } =
-        tableInstance;
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        prepareRow,
+        footerGroups,
+        state,
+        setGlobalFilter,
+        page,
+        nextPage,
+        previousPage,
+        canNextPage,
+        canPreviousPage,
+        pageOptions,
+    } = tableInstance;
 
-    const { globalFilter } = state;
+    const { globalFilter, pageIndex } = state;
     return (
         <>
             <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
@@ -59,7 +73,7 @@ export const Table = () => {
                     ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                    {rows.map((row) => {
+                    {page.map((row) => {
                         prepareRow(row);
                         return (
                             <tr {...row.getRowProps()}>
@@ -80,6 +94,17 @@ export const Table = () => {
                     ))}
                 </tfoot>
             </table>
+            <div>
+                <span>
+                    Page <strong>{pageIndex + 1}</strong> of <strong>{pageOptions.length} </strong>
+                </span>
+                <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+                    Previous
+                </button>
+                <button onClick={() => nextPage()} disabled={!canNextPage}>
+                    Next
+                </button>
+            </div>
         </>
     );
 };

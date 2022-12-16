@@ -1,12 +1,9 @@
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "font-awesome/css/font-awesome.min.css";
-import { Table } from "./components/Table";
-
+import { TableView } from "./components/TableView";
+import MOCK_DATA from "./components/data.json";
 function App() {
     return (
         <div className="m-5">
-            <Table />
+            <TableView tableData={MOCK_DATA} globalSearch={true} tableFooter={true}/>
         </div>
     );
 }

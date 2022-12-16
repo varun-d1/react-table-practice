@@ -8,17 +8,18 @@ const GlobalFilter = ({ filter, setFilter }) => {
     }, 1000);
 
     return (
-        <div>
-            <span>
-                Search{" "}
+        <div className="d-flex align-items-center">
+            <div className="me-2">Search</div>
+            <div style={{width:"200px"}}>
                 <input
+                    className="form-control"
                     value={value || ""}
                     onChange={(e) => {
                         setValue(e.target.value);
                         onChange(e.target.value);
                     }}
                 />
-            </span>
+            </div>
         </div>
     );
 };

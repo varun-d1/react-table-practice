@@ -9,6 +9,7 @@ export const COLUMNS = [
         Header: "Phone",
         Footer: "Phone",
         accessor: "phone",
+        disableFilters: true,
     },
     {
         Header: "Email",
@@ -20,6 +21,14 @@ export const COLUMNS = [
         Header: "Date",
         Footer: "Date",
         accessor: "date",
+        disableFilters: true,
+    },
+    {
+        Header: "Action",
+        Footer: "Action",
+        Cell: ({row:{values}}) => (
+            <button onClick={()=>console.log(values)}>Click Me</button>
+          ),
         disableFilters: true,
     },
 ];

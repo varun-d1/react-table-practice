@@ -2,14 +2,13 @@ import { useMemo } from "react";
 import { useTable, useSortBy, useGlobalFilter, useFilters, usePagination } from "react-table";
 
 import "./style.css";
-import { COLUMNS } from "./columns";
 import GlobalFilter from "./GlobalFilter";
 import ColumnFilter from "./ColumnFilter";
 
 export const TableView = (props) => {
-    const { globalSearch, tableFooter, tableData } = props;
+    const { globalSearch, tableFooter, tableData, tableColumns } = props;
 
-    const columns = useMemo(() => COLUMNS, []);
+    const columns = useMemo(() => tableColumns, []);
     const data = useMemo(() => tableData, []);
 
     
@@ -71,7 +70,7 @@ export const TableView = (props) => {
                                         className="text-center"
                                     >
                                         {column.render("Header")}
-                                        <span className="ms-2">
+                                        <span className="ml-2">
                                             {column.isSorted ? (
                                                 column.isSortedDesc ? (
                                                     <i className="fa fa-sort-asc" />
@@ -161,7 +160,7 @@ export const TableView = (props) => {
                         </button>
                         <button
                             type="button"
-                            className="btn btn-primary ms-2"
+                            className="btn btn-primary ml-2"
                             onClick={() => previousPage()}
                             disabled={!canPreviousPage}
                         >
